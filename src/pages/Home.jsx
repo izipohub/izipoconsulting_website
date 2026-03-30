@@ -1,3 +1,4 @@
+// pages/Home.jsx
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
 
@@ -28,7 +29,6 @@ const Home = () => {
   const adjustBiplaneForScreenSize = () => {
     let screenScale, screenPosition;
 
-    // If screen width is less than 768px, adjust the scale and position
     if (window.innerWidth < 768) {
       screenScale = [1.5, 1.5, 1.5];
       screenPosition = [0, -1.5, 0];
@@ -104,12 +104,13 @@ const Home = () => {
         </Suspense>
       </Canvas>
 
-      <div className='absolute bottom-2 left-2'>
+      {/* Sound Toggle - Moved to a better position */}
+      <div className='absolute top-1/2 right-4 -translate-y-1/2 z-20'>
         <img
           src={!isPlayingMusic ? soundoff : soundon}
           alt='jukebox'
           onClick={() => setIsPlayingMusic(!isPlayingMusic)}
-          className='w-10 h-10 cursor-pointer object-contain'
+          className='w-10 h-10 cursor-pointer object-contain bg-black/50 rounded-full p-2 backdrop-blur-sm hover:bg-black/70 transition-all'
         />
       </div>
     </section>
