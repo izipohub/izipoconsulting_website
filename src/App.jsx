@@ -1,16 +1,19 @@
 // App.jsx
 import { Suspense, lazy, useState, useEffect } from "react";
 import { Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
+import { HelmetProvider } from 'react-helmet-async';
 
 import { Footer, Navbar } from "./components";
 import { PageLoader } from "./components/Loader";
 
-// Lazy load pages for better performance
+// Lazy load pages
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Services = lazy(() => import("./pages/Services"));
 const Projects = lazy(() => import("./pages/Projects"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
 const WebDevelopment = lazy(() => import("./pages/services/WebDevelopment"));
 const MobileDevelopment = lazy(() => import("./pages/services/MobileDevelopment"));
 const DesktopDevelopment = lazy(() => import("./pages/services/DesktopDevelopment"));
@@ -45,7 +48,6 @@ const AppRoutes = () => {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   useEffect(() => {
-    // Hide loader after first load
     const timer = setTimeout(() => {
       setIsFirstLoad(false);
     }, 800);
@@ -65,10 +67,12 @@ const AppRoutes = () => {
           <Route path='/projects' element={<Projects />} />
           <Route path='/services' element={<Services />} />
           <Route path='/contact' element={<Contact />} />
+          <Route path='/privacy' element={<Privacy />} />
+          <Route path='/terms' element={<Terms />} />
           <Route path='/services/web-development' element={<WebDevelopment />} />
           <Route path='/services/mobile-development' element={<MobileDevelopment />} />
           <Route path='/services/desktop-development' element={<DesktopDevelopment />} />
-          <Route path='/services/ux/ui-design' element={<UXUIDesign />} />
+          <Route path='/services/ux-ui-design' element={<UXUIDesign />} />
           <Route path='/services/cloud-solutions' element={<CloudSolutions />} />
           <Route path='/services/graphics-design' element={<GraphicsDesign />} />
         </Routes>
@@ -80,12 +84,14 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    <main className='bg-gradient-to-b from-gray-900 via-gray-900 to-black min-h-screen'>
-      <Router>
-        <Navbar />
-        <AppRoutes />
-      </Router>
-    </main>
+    <HelmetProvider>
+      <main className='bg-gradient-to-b from-gray-900 via-gray-900 to-black min-h-screen'>
+        <Router>
+          <Navbar />
+          <AppRoutes />
+        </Router>
+      </main>
+    </HelmetProvider>
   );
 };
 
